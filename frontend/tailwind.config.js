@@ -22,6 +22,9 @@ export default {
         "header-mobile": "url(../assets/images/bg-mobile-light.jpg)",
       },
     },
+    letterSpacing: {
+      widest: ".8rem",
+    },
   },
   plugins: [],
 };
