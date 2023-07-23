@@ -15,8 +15,13 @@ export default {
       "blue-grayish-dark": "hsl(234, 11%, 52%)",
       "blue-very-dark-grayish": "hsl(233, 14%, 35%)",
       "blue-very-dark-grayish-2": "hsl(237, 14%, 26%)",
+      white: "white",
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "header-mobile": "url(../assets/images/bg-mobile-light.jpg)",
+      },
+    },
   },
   plugins: [],
 };
