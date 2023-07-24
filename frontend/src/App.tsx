@@ -1,9 +1,15 @@
-import Header from "./components/Home";
+import Header from "./components/Header";
+import TodoList from "./components/TodoList";
 
 function App() {
   return (
     <>
       <Header />
+      <main className="bg-gray px-5 flex-1">
+        <div className="relative -top-[88px]">
+          <TodoList />
+        </div>
+      </main>
     </>
   );
 }
