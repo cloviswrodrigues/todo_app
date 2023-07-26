@@ -1,3 +1,5 @@
+import TodoItem from "../TodoItem";
+
 const TodoList = () => {
   return (
     <>
@@ -10,11 +12,11 @@ const TodoList = () => {
         />
       </div>
       <ul className="bg-white rounded-md mb-4 shadow-lg">
-        <li>Jog around the park 3x</li>
-        <li>Jog around the park 3x</li>
-        <li>Jog around the park 3x</li>
-        <li>Jog around the park 3x</li>
-        <li>Jog around the park 3x</li>
+        <TodoItem>Jog around the park 3x</TodoItem>
+        <TodoItem>Jog around the park 3x</TodoItem>
+        <TodoItem>Jog around the park 3x</TodoItem>
+        <TodoItem>Jog around the park 3x</TodoItem>
+        <TodoItem>Jog around the park 3x</TodoItem>
       </ul>
       <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm">
         <button>All</button>
