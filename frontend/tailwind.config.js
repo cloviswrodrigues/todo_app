@@ -20,11 +20,15 @@ export default {
     extend: {
       backgroundImage: {
         "header-mobile": "url(../assets/images/bg-mobile-light.jpg)",
+        "header-desktop": "url(../assets/images/bg-desktop-light.jpg)",
       },
     },
     letterSpacing: {
       widest: ".8rem",
     },
+    screens: {
+      'sm': '375px',
+    }
   },
   plugins: [],
 };
