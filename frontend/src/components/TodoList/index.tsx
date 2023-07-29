@@ -6,7 +6,7 @@ const TodoList = () => {
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center">
         <span className="border block w-5 h-5 rounded-full border-gray-light mr-3"></span>
         <input
-          className="py-4"
+          className="py-4 md:py-5 md:text-base"
           type="text"
           placeholder="Create a new todo..."
         />
@@ -19,17 +19,22 @@ const TodoList = () => {
           <TodoItem>Jog around the park 3x</TodoItem>
           <TodoItem>Jog around the park 3x</TodoItem>
         </ul>
-        <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark">
+        <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
           <p>5 items left</p>
+          <div className="font-bold hidden md:flex justify-center gap-4">
+            <button>All</button>
+            <button>Active</button>
+            <button>Completed</button>
+          </div>          
           <button>Clear Completed</button>
         </div>
       </div>
-      <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm mb-10 text-gray-dark text-sm font-bold">
+      <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden">
         <button>All</button>
         <button>Active</button>
         <button>Completed</button>
       </div>
-      <p className="text-sm text-center text-gray-dark">Drag and drop to reorder list</p>
+      <p className="text-sm text-center text-gray-dark mt-10">Drag and drop to reorder list</p>
     </>
   );
 };

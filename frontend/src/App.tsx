@@ -6,7 +6,7 @@ function App() {
     <>
       <Header />
       <main className="bg-gray px-5 flex-1">
-        <div className="relative -top-[88px]">
+        <div className="relative -top-[88px] max-w-lg w-full m-auto sm:-top-[110px]">
           <TodoList />
         </div>
       </main>
