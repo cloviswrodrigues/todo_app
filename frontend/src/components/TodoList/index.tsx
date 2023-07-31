@@ -6,7 +6,7 @@ const TodoList = () => {
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center">
         <span className="border block w-5 h-5 rounded-full border-gray-light mr-3"></span>
         <input
-          className="py-4 md:py-5 md:text-base"
+          className="py-4 md:py-4 md:text-base"
           type="text"
           placeholder="Create a new todo..."
         />
