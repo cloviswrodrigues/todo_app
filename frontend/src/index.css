@@ -21,3 +21,12 @@ body {
 input {
   outline: none;
 }
+
+.border-custom-gradient:hover {
+  border-color: transparent;
+  background: 
+    linear-gradient(white, white), 
+    linear-gradient(100deg, #57ddff , #c058f3); 
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
