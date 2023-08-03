@@ -22,11 +22,11 @@ const TodoList = () => {
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
           <p>5 items left</p>
           <div className="font-bold hidden md:flex justify-center gap-4">
-            <button>All</button>
-            <button>Active</button>
-            <button>Completed</button>
+            <button className="hover:text-blue-very-dark">All</button>
+            <button className="hover:text-blue-very-dark">Active</button>
+            <button className="hover:text-blue-very-dark">Completed</button>
           </div>          
-          <button>Clear Completed</button>
+          <button className="hover:text-blue-very-dark">Clear Completed</button>
         </div>
       </div>
       <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden">
