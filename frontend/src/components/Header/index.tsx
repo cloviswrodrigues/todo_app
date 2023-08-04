@@ -1,4 +1,5 @@
 import { ReactComponent as MoonSVG } from "../../assets/icon-moon.svg";
+import { ReactComponent as SunSVG } from "../../assets/icon-sun.svg";
 
 const Header = () => {
   return (
@@ -6,7 +7,8 @@ const Header = () => {
       <div className="flex justify-between items-center max-w-lg w-full m-auto">
         <h1 className="text-white text-2xl font-bold tracking-widest md:text-4xl">TODO</h1>
         <span className="w-5 md:w-6">
-          <MoonSVG />
+          <span className="dark:hidden"><MoonSVG /></span>
+          <span className="hidden dark:inline"><SunSVG /></span>  
         </span>
       </div>
     </header>
