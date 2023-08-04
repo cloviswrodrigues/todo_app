@@ -16,11 +16,14 @@ export default {
       "blue-very-dark-grayish": "hsl(233, 14%, 35%)",
       "blue-very-dark-grayish-2": "hsl(237, 14%, 26%)",
       white: "white",
+      transparent: "transparent"
     },
     extend: {
       backgroundImage: {
         "header-mobile": "url(../assets/images/bg-mobile-light.jpg)",
         "header-desktop": "url(../assets/images/bg-desktop-light.jpg)",
+        "header-mobile-dark": "url(../assets/images/bg-mobile-dark.jpg)",
+        "header-desktop-dark": "url(../assets/images/bg-desktop-dark.jpg)",
       },
     },
     letterSpacing: {
@@ -32,5 +35,6 @@ export default {
       'lg': '1024px',
     }
   },
+  darkMode: 'class',
   plugins: [],
 };
