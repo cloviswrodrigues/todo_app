@@ -16,7 +16,9 @@ export default {
       "blue-very-dark-grayish": "hsl(233, 14%, 35%)",
       "blue-very-dark-grayish-2": "hsl(237, 14%, 26%)",
       white: "white",
-      transparent: "transparent"
+      transparent: "transparent",
+      "blue": "#57ddff", 
+      "pink":"#c058f3"
     },
     extend: {
       backgroundImage: {
