@@ -11,11 +11,10 @@ const TodoItem = ({ children }: TodoItemProps) => {
     const [isCheck, setIsCheck] = useState<boolean>(false);
 
     function handleCheck() {
-        console.log('aquiiiiiii')
         setIsCheck((prevState) => !prevState);
-    }
+    }    
 
-    
+    const classDescription = isCheck ? 'line-through text-gray-light dark:text-gray-dark':'text-gray-very-dark dark:text-gray';
 
     return (
         <li className="flex items-center p-4 pl-6 border-b border-gray-very-light md:p-5 dark:border-gray-very-dark">
@@ -24,7 +23,7 @@ const TodoItem = ({ children }: TodoItemProps) => {
                     <CheckSVG />
                 </div>
             </button>
-            <span className={`flex-1 text-sm text-gray-very-dark cursor-pointer md:text-base dark:text-gray ${isCheck && 'line-through text-gray-light dark:text-gray-dark' }`}>{children}</span>
+            <span className={`flex-1 text-sm cursor-pointer md:text-base ${classDescription}`}>{children}</span>
             <div className="w-3 cursor-pointer"><CloseSVG /></div>
         </li>
     )
