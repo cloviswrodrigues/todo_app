@@ -16,9 +16,9 @@ const TodoList = () => {
   const [todoList, setTodoList] = useState<Todo[] | null>(todoTest);
   const [newTodo, setNewTodo] = useState<string>('');
 
-  function handleKeyPress(e: KeyboardEventHandler) {
+  function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key == 'Enter') {
-      setTodoList((prevState) => [...prevState, { description: newTodo, isCompleted: false }])
+      setTodoList((prevState) => [...prevState || [], { description: newTodo, isCompleted: false }])
       setNewTodo('');
     }
   }
@@ -38,7 +38,7 @@ const TodoList = () => {
       </div>
       <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
         <ul>
-          {todoList?.map((todo) => <TodoItem key={todo.description} isCompleted={todo.isCompleted}>{todo.description}</TodoItem>)}
+          {todoList?.map((todo) => <TodoItem key={Math.random()} isCompleted={todo.isCompleted}>{todo.description}</TodoItem>)}
         </ul>
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
           <p>5 items left</p>
