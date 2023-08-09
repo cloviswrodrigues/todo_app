@@ -1,6 +1,28 @@
+import { useState } from "react";
+
 import TodoItem from "../TodoItem";
 
+interface Todo {
+  description: string,
+  isCompleted: boolean
+}
+
+const todoTest: Todo[] = [{
+  description: 'Jog around the park 3x',
+  isCompleted: false,
+}]
+
 const TodoList = () => {
+  const [todoList, setTodoList] = useState<Todo[] | null>(todoTest);
+  const [newTodo, setNewTodo] = useState<string>('');
+
+  function handleKeyPress(e: KeyboardEventHandler) {
+    if (e.key == 'Enter') {
+      setTodoList((prevState) => [...prevState, { description: newTodo, isCompleted: false }])
+      setNewTodo('');
+    }
+  }
+
   return (
     <>
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center dark:bg-blue-very-dark-desaturated">
@@ -9,15 +31,14 @@ const TodoList = () => {
           className="bg-transparent w-[90%] py-4 md:py-4 md:text-base"
           type="text"
           placeholder="Create a new todo..."
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          onKeyDown={handleKeyPress}
         />
       </div>
       <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
         <ul>
-          <TodoItem>Jog around the park 3x</TodoItem>
-          <TodoItem>Jog around the park 3x</TodoItem>
-          <TodoItem>Jog around the park 3x</TodoItem>
-          <TodoItem>Jog around the park 3x</TodoItem>
-          <TodoItem>Jog around the park 3x</TodoItem>
+          {todoList?.map((todo) => <TodoItem key={todo.description} isCompleted={todo.isCompleted}>{todo.description}</TodoItem>)}
         </ul>
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
           <p>5 items left</p>
