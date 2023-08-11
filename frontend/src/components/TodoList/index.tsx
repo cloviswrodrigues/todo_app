@@ -3,14 +3,22 @@ import { useState } from "react";
 import TodoItem from "../TodoItem";
 
 interface Todo {
+  id: number,
   description: string,
   isCompleted: boolean
 }
 
 const todoTest: Todo[] = [{
+  id: Math.random(),
   description: 'Jog around the park 3x',
   isCompleted: false,
-}]
+},
+{
+  id: Math.random(),
+  description: 'teste 1',
+  isCompleted: false,
+}
+]
 
 const TodoList = () => {
   const [todoList, setTodoList] = useState<Todo[] | null>(todoTest);
@@ -18,9 +26,24 @@ const TodoList = () => {
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key == 'Enter') {
-      setTodoList((prevState) => [...prevState || [], { description: newTodo, isCompleted: false }])
+      setTodoList((prevState) => [...prevState || [], { id: Math.random(), description: newTodo, isCompleted: false }])
       setNewTodo('');
     }
+  }
+
+  function handleCompleted(id: number) {      
+    setTodoList((prevState) => {
+      const indexTodoFound = prevState?.findIndex((todo) => todo.id === id) ?? -1;
+      const newTodoList = [...prevState || []];
+      if (indexTodoFound !== -1) {          
+        const todoItem = { 
+          ...newTodoList[indexTodoFound],
+          isCompleted: newTodoList[indexTodoFound].isCompleted ? false: true
+        }
+        newTodoList[indexTodoFound] = todoItem;
+      }
+      return newTodoList
+    })    
   }
 
   return (
@@ -38,7 +61,16 @@ const TodoList = () => {
       </div>
       <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
         <ul>
-          {todoList?.map((todo) => <TodoItem key={Math.random()} isCompleted={todo.isCompleted}>{todo.description}</TodoItem>)}
+          {todoList?.map((todo) => (
+              <TodoItem 
+                key={todo.id}
+                id={todo.id} 
+                handleCompleted={handleCompleted} 
+                isCompleted={todo.isCompleted}>
+                  {todo.description}
+              </TodoItem>
+            )
+          )}
         </ul>
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
           <p>5 items left</p>
