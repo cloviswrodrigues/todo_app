@@ -6,13 +6,19 @@ type TodoItemProps = {
     children: string,
     isCompleted: boolean
     handleCompleted: (id: number) => void
+    handleDeleted: (id: number) => void
 }
 
-const TodoItem = ({ id, children, isCompleted, handleCompleted }: TodoItemProps) => {
-    const idTodoItem = id; 
-    function handleCheck(e: React.MouseEvent<HTMLElement>) {
+const TodoItem = ({ id, children, isCompleted, handleCompleted, handleDeleted }: TodoItemProps) => {
+    const idTodoItem = id;
+
+    function handleCheck() {
         handleCompleted(idTodoItem);
     }    
+
+    function handleRemove() {
+        handleDeleted(idTodoItem)
+    }
 
     const classDescription = isCompleted ? 'line-through text-gray-light dark:text-gray-dark':'text-gray-very-dark dark:text-gray';
 
@@ -24,7 +30,7 @@ const TodoItem = ({ id, children, isCompleted, handleCompleted }: TodoItemProps)
                 </div>
             </button>
             <span className={`flex-1 text-sm cursor-pointer md:text-base ${classDescription}`}>{children}</span>
-            <div className="w-3 cursor-pointer"><CloseSVG /></div>
+            <div onClick={handleRemove} className="w-3 cursor-pointer"><CloseSVG /></div>
         </li>
     )
 }

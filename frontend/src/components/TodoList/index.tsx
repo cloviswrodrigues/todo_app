@@ -21,7 +21,7 @@ const todoTest: Todo[] = [{
 ]
 
 const TodoList = () => {
-  const [todoList, setTodoList] = useState<Todo[] | null>(todoTest);
+  const [todoList, setTodoList] = useState<Todo[] | []>(todoTest);
   const [newTodo, setNewTodo] = useState<string>('');
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -34,7 +34,7 @@ const TodoList = () => {
   function handleCompleted(id: number) {      
     setTodoList((prevState) => {
       const indexTodoFound = prevState?.findIndex((todo) => todo.id === id) ?? -1;
-      const newTodoList = [...prevState || []];
+      const newTodoList = [...prevState];
       if (indexTodoFound !== -1) {          
         const todoItem = { 
           ...newTodoList[indexTodoFound],
@@ -44,6 +44,10 @@ const TodoList = () => {
       }
       return newTodoList
     })    
+  }
+
+  function handleDeleted(id: number) {
+    setTodoList((prevState) => prevState.filter((todo)=> todo.id !== id))
   }
 
   return (
@@ -66,6 +70,7 @@ const TodoList = () => {
                 key={todo.id}
                 id={todo.id} 
                 handleCompleted={handleCompleted} 
+                handleDeleted={handleDeleted}
                 isCompleted={todo.isCompleted}>
                   {todo.description}
               </TodoItem>
