@@ -25,7 +25,7 @@ const TodoList = () => {
   const [newTodo, setNewTodo] = useState<string>('');
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key == 'Enter') {
+    if (e.key == 'Enter' && newTodo.length >= 5) {
       setTodoList((prevState) => [...prevState || [], { id: Math.random(), description: newTodo, isCompleted: false }])
       setNewTodo('');
     }
@@ -51,7 +51,7 @@ const TodoList = () => {
   }
 
   function handleClearCompleted(){
-      setTodoList([])
+      setTodoList((prevState) => prevState.filter((todo) => todo.isCompleted !== true))
   }
 
   return (
