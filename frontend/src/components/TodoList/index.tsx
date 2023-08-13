@@ -50,6 +50,10 @@ const TodoList = () => {
     setTodoList((prevState) => prevState.filter((todo)=> todo.id !== id))
   }
 
+  function handleClearCompleted(){
+      setTodoList([])
+  }
+
   return (
     <>
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center dark:bg-blue-very-dark-desaturated">
@@ -84,7 +88,7 @@ const TodoList = () => {
             <button className="hover:text-blue-very-dark">Active</button>
             <button className="hover:text-blue-very-dark">Completed</button>
           </div>          
-          <button className="hover:text-blue-very-dark">Clear Completed</button>
+          <button onClick={handleClearCompleted} className="hover:text-blue-very-dark">Clear Completed</button>
         </div>
       </div>
       <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden dark:bg-blue-very-dark-desaturated">
