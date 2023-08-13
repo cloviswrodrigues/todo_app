@@ -82,7 +82,7 @@ const TodoList = () => {
           )}
         </ul>
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
-          <p>5 items left</p>
+          <p>{todoList.length} items left</p>
           <div className="font-bold hidden md:flex justify-center gap-4">
             <button className="hover:text-blue-very-dark">All</button>
             <button className="hover:text-blue-very-dark">Active</button>
