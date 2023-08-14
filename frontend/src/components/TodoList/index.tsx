@@ -8,6 +8,12 @@ interface Todo {
   isCompleted: boolean
 }
 
+enum FilterBy {
+  All = 'All',
+  Active = 'Active',
+  Completed = 'Completed'
+}
+
 const todoTest: Todo[] = [{
   id: Math.random(),
   description: 'Jog around the park 3x',
@@ -23,6 +29,7 @@ const todoTest: Todo[] = [{
 const TodoList = () => {
   const [todoList, setTodoList] = useState<Todo[] | []>(todoTest);
   const [newTodo, setNewTodo] = useState<string>('');
+  const [filter, setFilter] = useState<FilterBy>(FilterBy.All);
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key == 'Enter' && newTodo.length >= 5) {
@@ -54,6 +61,16 @@ const TodoList = () => {
       setTodoList((prevState) => prevState.filter((todo) => todo.isCompleted !== true))
   }
 
+  const TodoListFiltered = todoList.filter((todo) => {
+    if (filter === FilterBy.Active) {
+      return todo.isCompleted === false
+    } else if(filter === FilterBy.Completed) {
+      return todo.isCompleted === true
+    } else {
+      return true
+    }
+  })
+
   return (
     <>
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center dark:bg-blue-very-dark-desaturated">
@@ -69,7 +86,7 @@ const TodoList = () => {
       </div>
       <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
         <ul>
-          {todoList?.map((todo) => (
+          {TodoListFiltered.map((todo) => (
               <TodoItem 
                 key={todo.id}
                 id={todo.id} 
@@ -84,17 +101,29 @@ const TodoList = () => {
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
           <p>{todoList.length} items left</p>
           <div className="font-bold hidden md:flex justify-center gap-4">
-            <button className="hover:text-blue-very-dark">All</button>
-            <button className="hover:text-blue-very-dark">Active</button>
-            <button className="hover:text-blue-very-dark">Completed</button>
+            <button 
+              className="hover:text-blue-very-dark"
+              onClick={() => setFilter(FilterBy.All)}
+              >All
+            </button>
+            <button 
+              className="hover:text-blue-very-dark"
+              onClick={() => setFilter(FilterBy.Active)}
+              >Active
+            </button>
+            <button 
+              className="hover:text-blue-very-dark"
+              onClick={() => setFilter(FilterBy.Completed)}
+              >Completed
+            </button>
           </div>          
           <button onClick={handleClearCompleted} className="hover:text-blue-very-dark">Clear Completed</button>
         </div>
       </div>
       <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden dark:bg-blue-very-dark-desaturated">
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
+        <button onClick={() => setFilter(FilterBy.All)}>All</button>
+        <button onClick={() => setFilter(FilterBy.Active)}>Active</button>
+        <button onClick={() => setFilter(FilterBy.Completed)}>Completed</button>
       </div>
       <p className="text-sm text-center text-gray-dark mt-10">Drag and drop to reorder list</p>
     </>
