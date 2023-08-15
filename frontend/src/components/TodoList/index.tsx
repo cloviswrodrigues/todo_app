@@ -71,6 +71,8 @@ const TodoList = () => {
     }
   })
 
+  const todoActiveLeft = todoList.filter((todo) => todo.isCompleted === false).length;
+
   return (
     <>
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center dark:bg-blue-very-dark-desaturated">
@@ -99,7 +101,7 @@ const TodoList = () => {
           )}
         </ul>
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
-          <p>{todoList.length} items left</p>
+          <p>{todoActiveLeft} items left</p>
           <div className="font-bold hidden md:flex justify-center gap-4">
             <button 
               className="hover:text-blue-very-dark"
