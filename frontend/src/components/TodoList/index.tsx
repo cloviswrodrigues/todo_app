@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import TodoItem from "../TodoItem";
 
@@ -30,6 +30,8 @@ const TodoList = () => {
   const [todoList, setTodoList] = useState<Todo[] | []>(todoTest);
   const [newTodo, setNewTodo] = useState<string>('');
   const [filter, setFilter] = useState<FilterBy>(FilterBy.All);
+  const itemDragStart = useRef<number | null>(null);
+  const itemDragEnter = useRef<number | null>(null);
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key == 'Enter' && newTodo.length >= 5) {
@@ -59,6 +61,11 @@ const TodoList = () => {
 
   function handleClearCompleted(){
       setTodoList((prevState) => prevState.filter((todo) => todo.isCompleted !== true))
+  }
+
+  function handleSortTodoList(){
+    console.log('dragStart: ', itemDragStart)
+    console.log('dragEnter: ', itemDragEnter)
   }
 
   const TodoListFiltered = todoList.filter((todo) => {
@@ -95,10 +102,15 @@ const TodoList = () => {
           {TodoListFiltered.map((todo) => (
               <TodoItem 
                 key={todo.id}
-                id={todo.id} 
+                idItem={todo.id}
                 handleCompleted={handleCompleted} 
                 handleDeleted={handleDeleted}
-                isCompleted={todo.isCompleted}>
+                isCompleted={todo.isCompleted}
+                draggable
+                onDragStart={() => itemDragStart.current=todo.id}
+                onDragEnter={() => itemDragEnter.current=todo.id}
+                onDragEnd={handleSortTodoList}
+                >
                   {todo.description}
               </TodoItem>
             )
