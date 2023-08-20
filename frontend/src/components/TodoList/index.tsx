@@ -64,8 +64,19 @@ const TodoList = () => {
   }
 
   function handleSortTodoList(){
-    console.log('dragStart: ', itemDragStart)
-    console.log('dragEnter: ', itemDragEnter)
+    const idDragStart = itemDragStart.current;
+    const idDragEnter = itemDragEnter.current;
+    if (idDragStart !== null &&  idDragEnter !== null) {
+      const indexDragStart = todoList.findIndex(({id}) => id === idDragStart);
+      const indexDragEnter = todoList.findIndex(({id}) => id === idDragEnter);
+      setTodoList((prevState) =>  {        
+        const newTodoList = [...prevState];
+        const auxTodo = newTodoList[indexDragStart];
+        newTodoList[indexDragStart] = newTodoList[indexDragEnter];
+        newTodoList[indexDragEnter] = auxTodo;
+        return newTodoList
+      })
+    }
   }
 
   const TodoListFiltered = todoList.filter((todo) => {
@@ -110,6 +121,7 @@ const TodoList = () => {
                 onDragStart={() => itemDragStart.current=todo.id}
                 onDragEnter={() => itemDragEnter.current=todo.id}
                 onDragEnd={handleSortTodoList}
+                onDragOver={(e) => e.preventDefault()}
                 >
                   {todo.description}
               </TodoItem>
