@@ -91,9 +91,9 @@ const TodoList = () => {
 
   const todoActiveLeft = todoList.filter((todo) => todo.isCompleted === false).length;
 
-  const isFilterAllSelected = filter === FilterBy.All ? 'text-blue-very-dark': '';
-  const isFilterActiveSelected = filter === FilterBy.Active ? 'text-blue-very-dark': '';
-  const isFilterCompletedSelected = filter === FilterBy.Completed ? 'text-blue-very-dark': '';
+  const isFilterAllSelected = filter === FilterBy.All ? 'text-blue-very-dark dark:text-blue-bright': '';
+  const isFilterActiveSelected = filter === FilterBy.Active ? 'text-blue-very-dark dark:text-blue-bright': '';
+  const isFilterCompletedSelected = filter === FilterBy.Completed ? 'text-blue-very-dark dark:text-blue-bright': '';
 
   return (
     <>
@@ -132,17 +132,17 @@ const TodoList = () => {
           <p>{todoActiveLeft} items left</p>
           <div className="font-bold hidden md:flex justify-center gap-4">
             <button 
-              className={`${isFilterAllSelected} hover:text-blue-very-dark`}
+              className={`${isFilterAllSelected} hover:text-blue-very-dark dark:hover:text-gray`}
               onClick={() => setFilter(FilterBy.All)}
               >All
             </button>
             <button 
-              className={`${isFilterActiveSelected} hover:text-blue-very-dark`}
+              className={`${isFilterActiveSelected} hover:text-blue-very-dark dark:hover:text-gray`}
               onClick={() => setFilter(FilterBy.Active)}
               >Active
             </button>
             <button 
-              className={`${isFilterCompletedSelected} hover:text-blue-very-dark`}
+              className={`${isFilterCompletedSelected} hover:text-blue-very-dark dark:hover:text-gray`}
               onClick={() => setFilter(FilterBy.Completed)}
               >Completed
             </button>
@@ -151,9 +151,9 @@ const TodoList = () => {
         </div>
       </div>
       <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden dark:bg-blue-very-dark-desaturated">
-        <button className={isFilterAllSelected} onClick={() => setFilter(FilterBy.All)}>All</button>
-        <button className={isFilterActiveSelected} onClick={() => setFilter(FilterBy.Active)}>Active</button>
-        <button className={isFilterCompletedSelected} onClick={() => setFilter(FilterBy.Completed)}>Completed</button>
+        <button className={`${isFilterAllSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.All)}>All</button>
+        <button className={`${isFilterActiveSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.Active)}>Active</button>
+        <button className={`${isFilterCompletedSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.Completed)}>Completed</button>
       </div>
       <p className="text-sm text-center text-gray-dark mt-10">Drag and drop to reorder list</p>
     </>
