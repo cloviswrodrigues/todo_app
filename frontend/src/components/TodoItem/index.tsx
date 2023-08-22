@@ -4,11 +4,12 @@ import { ReactComponent as CheckSVG } from "../../assets/icon-check.svg";
 type TodoItemProps = React.ComponentProps<'li'> & {
     idItem: number,
     isCompleted: boolean
+    addStyle: string,
     handleCompleted: (id: number) => void
     handleDeleted: (id: number) => void
 }
 
-const TodoItem = ({ idItem, children, isCompleted, handleCompleted, handleDeleted, ...props }: TodoItemProps) => {
+const TodoItem = ({ idItem, children, isCompleted, addStyle, handleCompleted, handleDeleted, ...props }: TodoItemProps) => {
     const idTodoItem = idItem;
 
     function handleCheck() {
@@ -24,7 +25,7 @@ const TodoItem = ({ idItem, children, isCompleted, handleCompleted, handleDelete
     return (
         <li 
             data-id={idItem} 
-            className="flex items-center p-4 pl-6 border-b border-gray-very-light cursor-move md:p-5 dark:border-gray-very-dark"
+            className={`flex items-center p-4 pl-6 border-b border-gray-very-light cursor-move md:p-5 dark:border-gray-very-dark ${addStyle}`}
             {...props}
             >
             <button onClick={handleCheck} className={`${!isCompleted && 'border'} block w-5 h-5 rounded-full mr-4 border-gray-light border-custom-gradient overflow-hidden dark:border-gray-dark`}>

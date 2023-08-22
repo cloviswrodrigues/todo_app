@@ -32,6 +32,7 @@ const TodoList = () => {
   const [filter, setFilter] = useState<FilterBy>(FilterBy.All);
   const itemDragStart = useRef<number | null>(null);
   const itemDragEnter = useRef<number | null>(null);
+  const [itemIsDragging, setItemIsDragging] = useState<number>(0);
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key == 'Enter' && newTodo.length >= 5) {
@@ -77,6 +78,16 @@ const TodoList = () => {
         return newTodoList
       })
     }
+    setItemIsDragging(0);
+  }
+  
+  function handleDragStart(id: number) {
+    itemDragStart.current = id;
+    
+  }
+
+  function handleOnDrag(id: number) {
+    setItemIsDragging(id);
   }
 
   const TodoListFiltered = todoList.filter((todo) => {
@@ -94,6 +105,8 @@ const TodoList = () => {
   const isFilterAllSelected = filter === FilterBy.All ? 'text-blue-very-dark dark:text-blue-bright': '';
   const isFilterActiveSelected = filter === FilterBy.Active ? 'text-blue-very-dark dark:text-blue-bright': '';
   const isFilterCompletedSelected = filter === FilterBy.Completed ? 'text-blue-very-dark dark:text-blue-bright': '';
+
+  const styleItemIsDragging = 'border-dashed';
 
   return (
     <>
@@ -117,8 +130,10 @@ const TodoList = () => {
                 handleCompleted={handleCompleted} 
                 handleDeleted={handleDeleted}
                 isCompleted={todo.isCompleted}
+                addStyle={itemIsDragging === todo.id ? styleItemIsDragging : ''}
                 draggable
-                onDragStart={() => itemDragStart.current=todo.id}
+                onDrag={()=> handleOnDrag(todo.id)}
+                onDragStart={() => handleDragStart(todo.id)}
                 onDragEnter={() => itemDragEnter.current=todo.id}
                 onDragEnd={handleSortTodoList}
                 onDragOver={(e) => e.preventDefault()}
