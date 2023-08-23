@@ -25,7 +25,7 @@ const TodoItem = ({ idItem, children, isCompleted, addStyle, handleCompleted, ha
     return (
         <li 
             data-id={idItem} 
-            className={`flex items-center p-4 pl-6 border-b border-gray-very-light cursor-move md:p-5 dark:border-gray-very-dark ${addStyle}`}
+            className={`flex items-center p-4 pl-6 border-b border-gray-very-light cursor-move md:p-5 dark:border-gray-very-dark [&>div]:hover:opacity-100 ${addStyle}`}
             {...props}
             >
             <button onClick={handleCheck} className={`${!isCompleted && 'border'} block w-5 h-5 rounded-full mr-4 border-gray-light border-custom-gradient overflow-hidden dark:border-gray-dark`}>
@@ -34,7 +34,7 @@ const TodoItem = ({ idItem, children, isCompleted, addStyle, handleCompleted, ha
                 </div>
             </button>
             <span className={`flex-1 text-sm md:text-base ${classDescription}`}>{children}</span>
-            <div onClick={handleRemove} className="w-3 cursor-pointer"><CloseSVG /></div>
+            <div onClick={handleRemove} className="w-3 cursor-pointer transition-all duration-300 md:opacity-0"><CloseSVG /></div>
         </li>
     )
 }
