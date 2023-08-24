@@ -33,7 +33,7 @@ const TodoItem = ({ idItem, children, isCompleted, addStyle, handleCompleted, ha
                     <CheckSVG />
                 </div>
             </button>
-            <span className={`flex-1 text-sm md:text-base ${classDescription}`}>{children}</span>
+            <span className={`flex-1 text-sm break-words max-w-[90%] md:text-base ${classDescription}`}>{children}</span>
             <div onClick={handleRemove} className="w-3 cursor-pointer transition-all duration-300 md:opacity-0"><CloseSVG /></div>
         </li>
     )

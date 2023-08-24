@@ -113,7 +113,7 @@ const TodoList = () => {
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center dark:bg-blue-very-dark-desaturated">
         <span className="border block w-5 h-5 rounded-full border-gray-light mr-3 dark:border-gray-dark"></span>
         <input
-          className="bg-transparent w-[90%] py-4 md:py-4 md:text-base"
+          className="bg-transparent w-[90%] py-4 md:py-4 md:text-base dark:text-gray"
           type="text"
           placeholder="Create a new todo..."
           value={newTodo}
@@ -144,7 +144,7 @@ const TodoList = () => {
           )}
         </ul>
         <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
-          <p>{todoActiveLeft} items left</p>
+          <p className="min-w-[80px]">{todoActiveLeft} items left</p>
           <div className="font-bold hidden md:flex justify-center gap-4">
             <button 
               className={`${isFilterAllSelected} hover:text-blue-very-dark dark:hover:text-gray`}
