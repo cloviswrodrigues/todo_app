@@ -14,20 +14,8 @@ enum FilterBy {
   Completed = 'Completed'
 }
 
-const todoTest: Todo[] = [{
-  id: Math.random(),
-  description: 'Jog around the park 3x',
-  isCompleted: false,
-},
-{
-  id: Math.random(),
-  description: 'teste 1',
-  isCompleted: false,
-}
-]
-
 const TodoList = () => {
-  const [todoList, setTodoList] = useState<Todo[] | []>(todoTest);
+  const [todoList, setTodoList] = useState<Todo[] | []>([]);
   const [newTodo, setNewTodo] = useState<string>('');
   const [filter, setFilter] = useState<FilterBy>(FilterBy.All);
   const itemDragStart = useRef<number | null>(null);
@@ -106,7 +94,7 @@ const TodoList = () => {
   const isFilterActiveSelected = filter === FilterBy.Active ? 'text-blue-very-dark dark:text-blue-bright': '';
   const isFilterCompletedSelected = filter === FilterBy.Completed ? 'text-blue-very-dark dark:text-blue-bright': '';
 
-  const styleItemIsDragging = 'border-dashed';
+  const styleItemIsDragging = '[&>*]:opacity-0';
 
   return (
     <>
@@ -121,56 +109,60 @@ const TodoList = () => {
           onKeyDown={handleKeyPress}
         />
       </div>
-      <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
-        <ul>
-          {TodoListFiltered.map((todo) => (
-              <TodoItem 
-                key={todo.id}
-                idItem={todo.id}
-                handleCompleted={handleCompleted} 
-                handleDeleted={handleDeleted}
-                isCompleted={todo.isCompleted}
-                addStyle={itemIsDragging === todo.id ? styleItemIsDragging : ''}
-                draggable
-                onDrag={()=> handleOnDrag(todo.id)}
-                onDragStart={() => handleDragStart(todo.id)}
-                onDragEnter={() => itemDragEnter.current=todo.id}
-                onDragEnd={handleSortTodoList}
-                onDragOver={(e) => e.preventDefault()}
-                >
-                  {todo.description}
-              </TodoItem>
-            )
-          )}
-        </ul>
-        <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
-          <p className="min-w-[80px]">{todoActiveLeft} items left</p>
-          <div className="font-bold hidden md:flex justify-center gap-4">
-            <button 
-              className={`${isFilterAllSelected} hover:text-blue-very-dark dark:hover:text-gray`}
-              onClick={() => setFilter(FilterBy.All)}
-              >All
-            </button>
-            <button 
-              className={`${isFilterActiveSelected} hover:text-blue-very-dark dark:hover:text-gray`}
-              onClick={() => setFilter(FilterBy.Active)}
-              >Active
-            </button>
-            <button 
-              className={`${isFilterCompletedSelected} hover:text-blue-very-dark dark:hover:text-gray`}
-              onClick={() => setFilter(FilterBy.Completed)}
-              >Completed
-            </button>
-          </div>          
-          <button onClick={handleClearCompleted} className="hover:text-blue-very-dark">Clear Completed</button>
+      {todoList.length > 0 && 
+        <>
+        <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
+          <ul>
+            {TodoListFiltered.map((todo) => (
+                <TodoItem 
+                  key={todo.id}
+                  idItem={todo.id}
+                  handleCompleted={handleCompleted} 
+                  handleDeleted={handleDeleted}
+                  isCompleted={todo.isCompleted}
+                  addStyle={itemIsDragging === todo.id ? styleItemIsDragging : ''}
+                  draggable
+                  onDrag={()=> handleOnDrag(todo.id)}
+                  onDragStart={() => handleDragStart(todo.id)}
+                  onDragEnter={() => itemDragEnter.current=todo.id}
+                  onDragEnd={handleSortTodoList}
+                  onDragOver={(e) => e.preventDefault()}
+                  >
+                    {todo.description}
+                </TodoItem>
+              )
+            )}
+          </ul>
+          <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
+            <p className="min-w-[80px]">{todoActiveLeft} items left</p>
+            <div className="font-bold hidden md:flex justify-center gap-4">
+              <button 
+                className={`${isFilterAllSelected} hover:text-blue-very-dark dark:hover:text-gray`}
+                onClick={() => setFilter(FilterBy.All)}
+                >All
+              </button>
+              <button 
+                className={`${isFilterActiveSelected} hover:text-blue-very-dark dark:hover:text-gray`}
+                onClick={() => setFilter(FilterBy.Active)}
+                >Active
+              </button>
+              <button 
+                className={`${isFilterCompletedSelected} hover:text-blue-very-dark dark:hover:text-gray`}
+                onClick={() => setFilter(FilterBy.Completed)}
+                >Completed
+              </button>
+            </div>          
+            <button onClick={handleClearCompleted} className="hover:text-blue-very-dark">Clear Completed</button>
+          </div>
         </div>
-      </div>
-      <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden dark:bg-blue-very-dark-desaturated">
-        <button className={`${isFilterAllSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.All)}>All</button>
-        <button className={`${isFilterActiveSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.Active)}>Active</button>
-        <button className={`${isFilterCompletedSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.Completed)}>Completed</button>
-      </div>
-      <p className="text-sm text-center text-gray-dark mt-10">Drag and drop to reorder list</p>
+        <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden dark:bg-blue-very-dark-desaturated">
+          <button className={`${isFilterAllSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.All)}>All</button>
+          <button className={`${isFilterActiveSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.Active)}>Active</button>
+          <button className={`${isFilterCompletedSelected} dark:hover:text-gray`} onClick={() => setFilter(FilterBy.Completed)}>Completed</button>
+        </div>
+        <p className="text-sm text-center text-gray-dark mt-10">Drag and drop to reorder list</p>
+        </>
+      }
     </>
   );
 };
