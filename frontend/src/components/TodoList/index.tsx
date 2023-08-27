@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 
 import TodoItem from "../TodoItem";
 
@@ -14,13 +15,22 @@ enum FilterBy {
   Completed = 'Completed'
 }
 
+const todoTest: Todo[] = [{
+  id: 34,
+  description: 'Jog around the park 3x',
+  isCompleted: false,
+},
+{
+  id: 34534,
+  description: 'teste 1',
+  isCompleted: false,
+}
+]
+
 const TodoList = () => {
-  const [todoList, setTodoList] = useState<Todo[] | []>([]);
+  const [todoList, setTodoList] = useState<Todo[] | []>(todoTest);
   const [newTodo, setNewTodo] = useState<string>('');
   const [filter, setFilter] = useState<FilterBy>(FilterBy.All);
-  const itemDragStart = useRef<number | null>(null);
-  const itemDragEnter = useRef<number | null>(null);
-  const [itemIsDragging, setItemIsDragging] = useState<number>(0);
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key == 'Enter' && newTodo.length >= 5) {
@@ -52,30 +62,30 @@ const TodoList = () => {
       setTodoList((prevState) => prevState.filter((todo) => todo.isCompleted !== true))
   }
 
-  function handleSortTodoList(){
-    const idDragStart = itemDragStart.current;
-    const idDragEnter = itemDragEnter.current;
-    if (idDragStart !== null &&  idDragEnter !== null) {
-      const indexDragStart = todoList.findIndex(({id}) => id === idDragStart);
-      const indexDragEnter = todoList.findIndex(({id}) => id === idDragEnter);
-      setTodoList((prevState) =>  {        
-        const newTodoList = [...prevState];
-        const auxTodo = newTodoList[indexDragStart];
-        newTodoList[indexDragStart] = newTodoList[indexDragEnter];
-        newTodoList[indexDragEnter] = auxTodo;
-        return newTodoList
-      })
-    }
-    setItemIsDragging(0);
-  }
-  
-  function handleDragStart(id: number) {
-    itemDragStart.current = id;
-    
+  function onDragStart(start, provided) {
+    console.log('1 - start: ', start)
+    console.log('1 - provided: ', provided)
+    console.log('start ativo')
   }
 
-  function handleOnDrag(id: number) {
-    setItemIsDragging(id);
+  function onDragEnd(result, provided){
+    console.log('2 - result: ', result)
+    console.log('2 - provided: ', provided)
+    console.log('on drag ativo')
+    // const idDragStart = itemDragStart.current;
+    // const idDragEnter = itemDragEnter.current;
+    // if (idDragStart !== null &&  idDragEnter !== null) {
+    //   const indexDragStart = todoList.findIndex(({id}) => id === idDragStart);
+    //   const indexDragEnter = todoList.findIndex(({id}) => id === idDragEnter);
+    //   setTodoList((prevState) =>  {        
+    //     const newTodoList = [...prevState];
+    //     const auxTodo = newTodoList[indexDragStart];
+    //     newTodoList[indexDragStart] = newTodoList[indexDragEnter];
+    //     newTodoList[indexDragEnter] = auxTodo;
+    //     return newTodoList
+    //   })s
+    // }
+    // setItemIsDragging(0);
   }
 
   const TodoListFiltered = todoList.filter((todo) => {
@@ -94,8 +104,6 @@ const TodoList = () => {
   const isFilterActiveSelected = filter === FilterBy.Active ? 'text-blue-very-dark dark:text-blue-bright': '';
   const isFilterCompletedSelected = filter === FilterBy.Completed ? 'text-blue-very-dark dark:text-blue-bright': '';
 
-  const styleItemIsDragging = '[&>*]:opacity-0';
-
   return (
     <>
       <div className="bg-white w-full px-3 pl-6 rounded-md text-sm mb-4 shadow-sm flex items-center dark:bg-blue-very-dark-desaturated">
@@ -112,27 +120,28 @@ const TodoList = () => {
       {todoList.length > 0 && 
         <>
         <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
-          <ul>
-            {TodoListFiltered.map((todo) => (
-                <TodoItem 
-                  key={todo.id}
-                  idItem={todo.id}
-                  handleCompleted={handleCompleted} 
-                  handleDeleted={handleDeleted}
-                  isCompleted={todo.isCompleted}
-                  addStyle={itemIsDragging === todo.id ? styleItemIsDragging : ''}
-                  draggable
-                  onDrag={()=> handleOnDrag(todo.id)}
-                  onDragStart={() => handleDragStart(todo.id)}
-                  onDragEnter={() => itemDragEnter.current=todo.id}
-                  onDragEnd={handleSortTodoList}
-                  onDragOver={(e) => e.preventDefault()}
-                  >
-                    {todo.description}
-                </TodoItem>
-              )
-            )}
-          </ul>
+          <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {TodoListFiltered.map((todo, index) => (                      
+                      <TodoItem 
+                        key={todo.id}
+                        idItem={todo.id}
+                        index={index}
+                        handleCompleted={handleCompleted} 
+                        handleDeleted={handleDeleted}
+                        isCompleted={todo.isCompleted}
+                      >
+                        {todo.description}
+                      </TodoItem>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}   
+              
+            </Droppable>
+          </DragDropContext>
           <div className="flex justify-between items-center p-4 pl-6 text-xs text-gray-dark md:p-6 md:text-sm">
             <p className="min-w-[80px]">{todoActiveLeft} items left</p>
             <div className="font-bold hidden md:flex justify-center gap-4">
