@@ -62,31 +62,7 @@ const TodoList = () => {
       setTodoList((prevState) => prevState.filter((todo) => todo.isCompleted !== true))
   }
 
-  function onDragStart(start, provided) {
-    console.log('1 - start: ', start)
-    console.log('1 - provided: ', provided)
-    console.log('start ativo')
-  }
-
-  function onDragEnd(result, provided){
-    console.log('2 - result: ', result)
-    console.log('2 - provided: ', provided)
-    console.log('on drag ativo')
-    // const idDragStart = itemDragStart.current;
-    // const idDragEnter = itemDragEnter.current;
-    // if (idDragStart !== null &&  idDragEnter !== null) {
-    //   const indexDragStart = todoList.findIndex(({id}) => id === idDragStart);
-    //   const indexDragEnter = todoList.findIndex(({id}) => id === idDragEnter);
-    //   setTodoList((prevState) =>  {        
-    //     const newTodoList = [...prevState];
-    //     const auxTodo = newTodoList[indexDragStart];
-    //     newTodoList[indexDragStart] = newTodoList[indexDragEnter];
-    //     newTodoList[indexDragEnter] = auxTodo;
-    //     return newTodoList
-    //   })s
-    // }
-    // setItemIsDragging(0);
-  }
+  const onDragEnd = () => {}
 
   const TodoListFiltered = todoList.filter((todo) => {
     if (filter === FilterBy.Active) {
@@ -120,7 +96,7 @@ const TodoList = () => {
       {todoList.length > 0 && 
         <>
         <div className="bg-white rounded-md mb-4 shadow-lg dark:bg-blue-very-dark-desaturated">
-          <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+          <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
               {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
