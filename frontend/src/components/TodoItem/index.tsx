@@ -1,5 +1,4 @@
-import { Draggable } from '@hello-pangea/dnd';
-
+import { Draggable, DraggableStyle } from '@hello-pangea/dnd';
 
 import { ReactComponent as CloseSVG } from "../../assets/icon-cross.svg";
 import { ReactComponent as CheckSVG } from "../../assets/icon-check.svg";
@@ -25,9 +24,8 @@ const TodoItem = ({ idItem, index, children, isCompleted, handleCompleted, handl
 
     const classDescription = isCompleted ? 'line-through text-gray-light dark:text-gray-dark':'text-gray-very-dark dark:text-gray';
 
-    const addStyle = (isDragging: boolean, draggableStyle) => {
-        console.log('draggableStyle: ', typeof draggableStyle);
-        const style = { ...draggableStyle }
+    const addStyle = (isDragging: boolean, draggableStyle: DraggableStyle | undefined) => {
+        const style: React.CSSProperties = { ...draggableStyle }
         if (isDragging) {
             style.borderWidth = "1px";
             style.borderRadius = "0.375rem";
