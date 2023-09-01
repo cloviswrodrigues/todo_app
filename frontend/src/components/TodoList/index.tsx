@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
+import { v4 as uuidv4 } from 'uuid';
 
 import TodoItem from "../TodoItem";
 
 interface Todo {
-  id: number,
+  id: string,
   description: string,
   isCompleted: boolean
 }
@@ -15,31 +16,20 @@ enum FilterBy {
   Completed = 'Completed'
 }
 
-const todoTest: Todo[] = [{
-  id: 34,
-  description: 'Jog around the park 3x',
-  isCompleted: false,
-},
-{
-  id: 34534,
-  description: 'teste 1',
-  isCompleted: false,
-}
-]
 
 const TodoList = () => {
-  const [todoList, setTodoList] = useState<Todo[] | []>(todoTest);
+  const [todoList, setTodoList] = useState<Todo[] | []>([]);
   const [newTodo, setNewTodo] = useState<string>('');
   const [filter, setFilter] = useState<FilterBy>(FilterBy.All);
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key == 'Enter' && newTodo.length >= 5) {
-      setTodoList((prevState) => [...prevState || [], { id: Math.random(), description: newTodo, isCompleted: false }])
+      setTodoList((prevState) => [...prevState || [], { id: uuidv4(), description: newTodo, isCompleted: false }])
       setNewTodo('');
     }
   }
 
-  function handleCompleted(id: number) {      
+  function handleCompleted(id: string) {      
     setTodoList((prevState) => {
       const indexTodoFound = prevState?.findIndex((todo) => todo.id === id) ?? -1;
       const newTodoList = [...prevState];
@@ -54,7 +44,7 @@ const TodoList = () => {
     })    
   }
 
-  function handleDeleted(id: number) {
+  function handleDeleted(id: string) {
     setTodoList((prevState) => prevState.filter((todo)=> todo.id !== id))
   }
 
@@ -62,7 +52,21 @@ const TodoList = () => {
       setTodoList((prevState) => prevState.filter((todo) => todo.isCompleted !== true))
   }
 
-  const onDragEnd = () => {}
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+
+    const idSource = TodoListFiltered[result.source.index].id;
+    const idDestination = TodoListFiltered[result.destination.index].id;
+
+    const indexSource = todoList.findIndex(({id}) => id === idSource);
+    const indexDestination = todoList.findIndex(({id}) => id === idDestination);
+
+    const newTodoList = Array.from(todoList);
+    const [itemMoved] = newTodoList.splice(indexSource, 1);
+    newTodoList.splice(indexDestination, 0, itemMoved);
+
+    setTodoList(newTodoList)
+  }
 
   const TodoListFiltered = todoList.filter((todo) => {
     if (filter === FilterBy.Active) {

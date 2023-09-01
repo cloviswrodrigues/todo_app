@@ -4,11 +4,11 @@ import { ReactComponent as CloseSVG } from "../../assets/icon-cross.svg";
 import { ReactComponent as CheckSVG } from "../../assets/icon-check.svg";
 
 type TodoItemProps = React.ComponentProps<'div'> & {
-    idItem: number,
+    idItem: string,
     index: number,
     isCompleted: boolean
-    handleCompleted: (id: number) => void
-    handleDeleted: (id: number) => void
+    handleCompleted: (id: string) => void
+    handleDeleted: (id: string) => void
 }
 
 const TodoItem = ({ idItem, index, children, isCompleted, handleCompleted, handleDeleted, ...props }: TodoItemProps) => {
