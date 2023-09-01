@@ -10,6 +10,12 @@ function App() {
           <TodoList />
         </div>
       </main>
+      <footer className="bg-gray">
+        <div className="text-center text-xs text-gray-dark">
+          Challenge by <a className="underline" href="https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW" target="_blank">Frontend Mentor</a>. 
+          Coded by <a className="underline" href="https://github.com/cloviswrodrigues" target="_blank">Clóvis Rodrigues</a>.
+        </div>    
+    </footer>
     </>
   );
 }
