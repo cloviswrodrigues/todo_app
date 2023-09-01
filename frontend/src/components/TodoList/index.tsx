@@ -76,9 +76,10 @@ const TodoList = () => {
 
   const todoActiveLeft = todoList.filter((todo) => todo.isCompleted === false).length;
 
-  const isFilterAllSelected = filter === FilterBy.All ? 'text-blue-very-dark dark:text-blue-bright': '';
-  const isFilterActiveSelected = filter === FilterBy.Active ? 'text-blue-very-dark dark:text-blue-bright': '';
-  const isFilterCompletedSelected = filter === FilterBy.Completed ? 'text-blue-very-dark dark:text-blue-bright': '';
+  const classFilterSelected = 'text-blue-very-dark dark:text-blue-bright dark:active:text-blue-bright dark:hover:text-blue-bright'
+  const isFilterAllSelected = filter === FilterBy.All ? classFilterSelected: '';
+  const isFilterActiveSelected = filter === FilterBy.Active ? classFilterSelected: '';
+  const isFilterCompletedSelected = filter === FilterBy.Completed ? classFilterSelected: '';
 
   return (
     <>
@@ -137,7 +138,7 @@ const TodoList = () => {
                 >Completed
               </button>
             </div>          
-            <button onClick={handleClearCompleted} className="hover:text-blue-very-dark">Clear Completed</button>
+            <button onClick={handleClearCompleted} className="hover:text-blue-very-dark dark:hover:text-gray">Clear Completed</button>
           </div>
         </div>
         <div className="bg-white p-4 rounded-md flex justify-center gap-4 shadow-sm text-gray-dark text-sm font-bold md:hidden dark:bg-blue-very-dark-desaturated">
