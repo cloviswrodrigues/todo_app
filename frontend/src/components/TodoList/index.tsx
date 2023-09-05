@@ -80,7 +80,7 @@ const TodoList = () => {
 
   const todoActiveLeft = todoList.filter((todo) => todo.isCompleted === false).length;
 
-  const classFilterSelected = 'text-blue-very-dark dark:text-blue-bright dark:active:text-blue-bright dark:hover:text-blue-bright'
+  const classFilterSelected = 'text-blue-very-dark dark:text-blue-bright dark:active:text-blue-bright dark:hover:text-blue-bright dark:focus:text-blue-bright'
   const isFilterAllSelected = filter === FilterBy.All ? classFilterSelected: '';
   const isFilterActiveSelected = filter === FilterBy.Active ? classFilterSelected: '';
   const isFilterCompletedSelected = filter === FilterBy.Completed ? classFilterSelected: '';
