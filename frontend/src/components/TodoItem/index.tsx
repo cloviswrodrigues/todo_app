@@ -11,7 +11,7 @@ type TodoItemProps = React.ComponentProps<'div'> & {
     handleDeleted: (id: string) => void
 }
 
-const TodoItem = ({ idItem, index, children, isCompleted, handleCompleted, handleDeleted, ...props }: TodoItemProps) => {
+const TodoItem = ({ idItem, index, children, isCompleted, handleCompleted, handleDeleted }: TodoItemProps) => {
     const idTodoItem = idItem;
 
     function handleCheck() {
